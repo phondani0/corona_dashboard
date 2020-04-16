@@ -11,19 +11,17 @@ import TableRow from '@material-ui/core/TableRow';
 
 
 const columns = [
-  { id: 'country_name', label: 'Region', minWidth: 100 },
-  { id: 'cases', label: 'Cases', minWidth: 100 },
+  { id: 'country_name', label: 'Region' },
+  { id: 'cases', label: 'Cases', },
   {
     id: 'deaths',
     label: 'Death',
-    minWidth: 100,
     align: 'right',
     format: (value) => value.toLocaleString(),
   },
   {
     id: 'total_recovered',
     label: 'Recovered',
-    minWidth: 100,
     align: 'right',
     format: (value) => value.toLocaleString(),
   },
@@ -35,10 +33,15 @@ const useStyles = makeStyles({
     height: '100%',
   },
   container: {
-    maxHeight: '50vh',
+    maxHeight: '52vh',
   },
   table: {
-    fontSize: 11
+  },
+  tableHead: {
+    padding: "6px 12px 6px 12px"
+  },
+  tableCell: {
+    padding: "7px 12px 7px 12px"
   }
 });
 
@@ -74,6 +77,7 @@ function DataTable({ data, updateDataDetails }) {
                   key={column.id}
                   align={column.align}
                   style={{ minWidth: column.minWidth }}
+                  className={classes.tableHead}
                 >
                   {column.label}
                 </TableCell>
@@ -89,7 +93,7 @@ function DataTable({ data, updateDataDetails }) {
                   {columns.map((column) => {
                     const value = row[column.id];
                     return (
-                      <TableCell key={column.id} align={column.align}>
+                      <TableCell key={column.id} align={column.align} className={classes.tableCell}>
                         {column.format && typeof value === 'number' ? column.format(value) : value}
                       </TableCell>
                     );
@@ -101,7 +105,7 @@ function DataTable({ data, updateDataDetails }) {
         </Table>
       </TableContainer>
       <TablePagination
-        rowsPerPageOptions={[10, 25, 100]}
+        rowsPerPageOptions={[10, 20, 40]}
         component="div"
         count={rows.length}
         rowsPerPage={rowsPerPage}

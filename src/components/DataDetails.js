@@ -46,6 +46,7 @@ function DataDetails({ data }) {
           direction="row"
           className={classes.gridBody}
           spacing={2}
+          justify="space-evenly"
         >
 
           <Grid
@@ -53,6 +54,7 @@ function DataDetails({ data }) {
             container
             direction="column"
             xs={6}
+            spacing={1}
           >
             <Grid item xs>
               <Grid
@@ -63,7 +65,7 @@ function DataDetails({ data }) {
                 justify="space-between"
               >
                 <Grid item>
-                  Cases
+                  Total cases
             </Grid>
                 <Grid item>
                   {data.cases}
@@ -113,7 +115,7 @@ function DataDetails({ data }) {
                 justify="space-between"
               >
                 <Grid item>
-                  total_recovered
+                  Recovered
             </Grid>
                 <Grid item>
                   {data.total_recovered}
@@ -138,7 +140,7 @@ function DataDetails({ data }) {
                 justify="space-between"
               >
                 <Grid item>
-                  new_deaths
+                  New deaths
             </Grid>
                 <Grid item>
                   {data.new_deaths}
@@ -160,6 +162,7 @@ function DataDetails({ data }) {
             container
             direction="column"
             xs={6}
+            spacing={1}
           >
             <Grid item xs>
               <Grid
@@ -170,7 +173,7 @@ function DataDetails({ data }) {
                 justify="space-between"
               >
                 <Grid item>
-                  new_cases
+                  New cases
             </Grid>
                 <Grid item>
                   {data.new_cases}
@@ -195,7 +198,7 @@ function DataDetails({ data }) {
                 justify="space-between"
               >
                 <Grid item>
-                  serious_critical
+                  Serious critical
             </Grid>
                 <Grid item>
                   {data.serious_critical}
@@ -219,9 +222,9 @@ function DataDetails({ data }) {
                 container
                 justify="space-between"
               >
-                <Grid item>
-                  active_cases
-            </Grid>
+                <Grid item >
+                  Active cases
+                </Grid>
                 <Grid item>
                   {data.active_cases}
                 </Grid>
@@ -245,8 +248,8 @@ function DataDetails({ data }) {
                 justify="space-between"
               >
                 <Grid item>
-                  Cases per 1 million
-            </Grid>
+                  Cases per 1 M
+                </Grid>
                 <Grid item>
                   {data.total_cases_per_1m_population}
                 </Grid>

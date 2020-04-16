@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Container maxWidth="lg">
         <header>
-          <h2>Corona Dashboard</h2>
+          <h3>Corona Dashboard</h3>
         </header>
         <Dashboard />
       </Container>

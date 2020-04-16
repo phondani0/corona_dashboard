@@ -32,7 +32,28 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
+  }
+}
+
+
+/* table pagination css  */
+@media only screen and (max-width:500px) {
+  .MuiToolbar-gutters {
+    padding-left: 10px !important;
+  }
+
+  .MuiTablePagination-selectRoot {
+    margin-right: 15px !important;
+  }
+
+  .MuiTablePagination-actions {
+    margin-left: 5px !important;
+  }
+
+  .MuiIconButton-root {
+    padding: 12px 8px !important;
   }
 }
