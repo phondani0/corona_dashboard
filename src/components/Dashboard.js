@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DataTable from './DataTable';
 import DataDetails from './DataDetails';
+import { Box } from '@material-ui/core';
 
 function Dashboard() {
   const [data, setData] = useState([]);
@@ -45,8 +46,12 @@ function Dashboard() {
 
   return (
     <React.Fragment>
-      <DataDetails data={dataDetails} />
-      <DataTable data={data} updateDataDetails={updateDataDetails} />
+      <Box>
+        <DataDetails data={dataDetails} />
+      </Box>
+      <Box mt={4}>
+        <DataTable data={data} updateDataDetails={updateDataDetails} />
+      </Box>
     </React.Fragment>
   );
 }

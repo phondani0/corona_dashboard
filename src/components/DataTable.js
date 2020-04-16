@@ -32,11 +32,14 @@ const columns = [
 const useStyles = makeStyles({
   root: {
     width: '100%',
-    height: '100%'
+    height: '100%',
   },
   container: {
-    maxHeight: '60vh',
+    maxHeight: '50vh',
   },
+  table: {
+    fontSize: 11
+  }
 });
 
 function DataTable({ data, updateDataDetails }) {
@@ -63,7 +66,7 @@ function DataTable({ data, updateDataDetails }) {
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
-        <Table stickyHeader aria-label="sticky table">
+        <Table className={classes.table} stickyHeader aria-label="sticky table" size="small">
           <TableHead>
             <TableRow  >
               {columns.map((column) => (
