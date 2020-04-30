@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { lighten, makeStyles, withStyles } from '@material-ui/core/styles';
 import LinearProgress from '@material-ui/core/LinearProgress';
 import Paper from '@material-ui/core/Paper';
@@ -9,11 +9,55 @@ import Box from '@material-ui/core/Box';
 const BorderLinearProgress = withStyles({
   root: {
     height: 10,
-    backgroundColor: lighten('#ff6c5c', 0.5),
+    backgroundColor: lighten('#161b31', 0.8),
   },
   bar: {
     borderRadius: 20,
-    backgroundColor: '#ff6c5c',
+    backgroundColor: '#0023fb',
+  },
+})(LinearProgress);
+
+const DeathsProgress = withStyles({
+  root: {
+    height: 10,
+    backgroundColor: lighten('#e31b2c', 0.5),
+  },
+  bar: {
+    borderRadius: 20,
+    backgroundColor: '#e31b2c',
+  },
+})(LinearProgress);
+
+const RecoveredProgress = withStyles({
+  root: {
+    height: 10,
+    backgroundColor: lighten('#40a776', 0.5),
+  },
+  bar: {
+    borderRadius: 20,
+    backgroundColor: '#40a776',
+  },
+})(LinearProgress);
+
+const ActiveProgress = withStyles({
+  root: {
+    height: 10,
+    backgroundColor: lighten('#f97739', 0.5),
+  },
+  bar: {
+    borderRadius: 20,
+    backgroundColor: '#f97739',
+  },
+})(LinearProgress);
+
+const NewProgress = withStyles({
+  root: {
+    height: 10,
+    backgroundColor: lighten('#f97739', 0.5),
+  },
+  bar: {
+    borderRadius: 20,
+    backgroundColor: '#f97739',
   },
 })(LinearProgress);
 
@@ -32,11 +76,40 @@ const useStyles = makeStyles((theme) => ({
   gridBody: {
     fontSize: 14,
     padding: 10
+  },
+  bar_recovered: {
+    background: "linear-gradient(to right, #430089, #82ffa1)"
   }
 }));
 
 function DataDetails({ data }) {
   const classes = useStyles();
+
+  const [progressData, setProgressData] = useState({});
+
+  useEffect(() => {
+    const percentOfxPerTotalCases = (x, totalCases = data.cases) => {
+      console.log(x, totalCases);
+      return Math.ceil(parseInt((x || "").replace(/,/g, '')) / parseInt((totalCases || "").replace(/,/g, '')) * 100) || 0;
+    };
+
+    const progressData = {
+      'totalCases': 100,
+      'deaths': percentOfxPerTotalCases(data.deaths),
+      'recovered': percentOfxPerTotalCases(data.total_recovered),
+      'newDeaths': percentOfxPerTotalCases(data.new_deaths),
+      'newCases': percentOfxPerTotalCases(data.new_cases),
+      'seriousCritical': percentOfxPerTotalCases(data.serious_critical),
+      'activeCases': percentOfxPerTotalCases(data.active_cases),
+      'totalCasesPerM': percentOfxPerTotalCases(data.total_cases_per_1m_population)
+    }
+
+    setProgressData(progressData);
+
+    console.log(progressData);
+  }, [data]);
+
+
   return (
     <Box>
       <Paper>
@@ -68,7 +141,7 @@ function DataDetails({ data }) {
                   Total cases
             </Grid>
                 <Grid item>
-                  {data.cases}
+                  {data.cases || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
@@ -76,7 +149,7 @@ function DataDetails({ data }) {
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.totalCases - 2}
                 />
               </Grid>
             </Grid>
@@ -93,15 +166,15 @@ function DataDetails({ data }) {
                   Deaths
                   </Grid>
                 <Grid item>
-                  {data.deaths}
+                  {data.deaths || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
-                <BorderLinearProgress
+                <DeathsProgress
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.deaths}
                 />
               </Grid>
             </Grid>
@@ -118,15 +191,15 @@ function DataDetails({ data }) {
                   Recovered
             </Grid>
                 <Grid item>
-                  {data.total_recovered}
+                  {data.total_recovered || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
-                <BorderLinearProgress
+                <RecoveredProgress
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.recovered}
                 />
               </Grid>
             </Grid>
@@ -143,15 +216,15 @@ function DataDetails({ data }) {
                   New deaths
             </Grid>
                 <Grid item>
-                  {data.new_deaths}
+                  {data.new_deaths || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
-                <BorderLinearProgress
+                <DeathsProgress
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.newDeaths}
                 />
               </Grid>
             </Grid>
@@ -176,15 +249,15 @@ function DataDetails({ data }) {
                   New cases
             </Grid>
                 <Grid item>
-                  {data.new_cases}
+                  {data.new_cases || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
-                <BorderLinearProgress
+                <NewProgress
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.newCases}
                 />
               </Grid>
             </Grid>
@@ -201,15 +274,15 @@ function DataDetails({ data }) {
                   Serious critical
             </Grid>
                 <Grid item>
-                  {data.serious_critical}
+                  {data.serious_critical || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
-                <BorderLinearProgress
+                <DeathsProgress
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.seriousCritical}
                 />
               </Grid>
             </Grid>
@@ -226,15 +299,15 @@ function DataDetails({ data }) {
                   Active cases
                 </Grid>
                 <Grid item>
-                  {data.active_cases}
+                  {data.active_cases || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
-                <BorderLinearProgress
+                <ActiveProgress
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.activeCases}
                 />
               </Grid>
             </Grid>
@@ -251,7 +324,7 @@ function DataDetails({ data }) {
                   Cases per 1 M
                 </Grid>
                 <Grid item>
-                  {data.total_cases_per_1m_population}
+                  {data.total_cases_per_1m_population || "NA"}
                 </Grid>
               </Grid>
               <Grid item>
@@ -259,7 +332,7 @@ function DataDetails({ data }) {
                   className={classes.margin}
                   variant="determinate"
                   color="secondary"
-                  value={50}
+                  value={progressData.totalCasesPerM}
                 />
               </Grid>
             </Grid>

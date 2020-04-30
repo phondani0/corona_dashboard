@@ -33,15 +33,15 @@ const useStyles = makeStyles({
     height: '100%',
   },
   container: {
-    maxHeight: '52vh',
+    maxHeight: '50vh',
   },
   table: {
   },
   tableHead: {
-    padding: "6px 12px 6px 12px"
+    padding: "5px 12px 5px 12px"
   },
   tableCell: {
-    padding: "7px 12px 7px 12px"
+    padding: "6px 12px 6px 12px"
   }
 });
 
