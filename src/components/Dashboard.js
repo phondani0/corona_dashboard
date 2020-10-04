@@ -3,10 +3,12 @@ import axios from 'axios';
 import DataTable from './DataTable';
 import DataDetails from './DataDetails';
 import { Box, Grid } from '@material-ui/core';
+import Map from './Map/Map';
 
 function Dashboard() {
   const [data, setData] = useState([]);
   const [dataDetails, setDataDetails] = useState([]);
+  const [countries, setCountries] = useState([]);
 
   useEffect(() => {
     axios({
@@ -37,7 +39,24 @@ function Dashboard() {
       })
       .catch((error) => {
         console.log(error);
+      });
+
+    axios({
+      "method": "GET",
+      "url": "https://disease.sh/v3/covid-19/countries",
+      "headers": {
+      }
+    })
+      .then((response) => {
+        console.log(response);
+
+        setCountries(response.data);
       })
+      .catch((error) => {
+        console.log(error);
+      });
+
+
   }, []);
 
   const updateDataDetails = (data) => {
@@ -49,14 +68,19 @@ function Dashboard() {
       <Grid
         container
         justify="center"
+        direction="column"
       >
-        <Grid item xs lg={10} mb={2}>
+        <Grid item xs lg={12} mb={2}>
           <Box>
             <DataDetails data={dataDetails} />
           </Box>
           <Box mt={4}>
             <DataTable data={data} updateDataDetails={updateDataDetails} />
           </Box>
+        </Grid>
+
+        <Grid item xs lg={12}>
+          <Map countries={countries} center={[34, -40]} zoom={2}></Map>
         </Grid>
       </Grid>
     </React.Fragment>

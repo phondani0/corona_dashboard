@@ -8,7 +8,7 @@ function App() {
     <div className="App">
       <Container maxWidth="lg">
         <header>
-          <h3>Corona Dashboard</h3>
+          <h2 style={{ color: 'red', textTransform: "uppercase" }}>Corona Dashboard</h2>
         </header>
         <Dashboard />
       </Container>
